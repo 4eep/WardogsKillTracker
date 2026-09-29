@@ -135,8 +135,10 @@ void Application::StopSession() {
 void Application::OnVideo(const std::filesystem::path &p) {
   std::scoped_lock l(sessionMutex_);
   if (archivedVideos_.contains(p.lexically_normal())) return;
-  std::error_code fileError;
-  if (!std::filesystem::is_regular_file(p, fileError)) return;
+  // FILE_ACTION_ADDED may arrive before the recorder has finished creating the
+  // file. Keep the path now and let RecordingSession::TryArchive poll until the
+  // file exists, becomes stable, and can be opened exclusively.
+  if (session_ && session_->RecordingFile() == p) return;
   for (const auto &pending : pendingArchives_)
     if (pending.session->RecordingFile() == p) return;
   bool predatesCurrent = false;
@@ -149,7 +151,13 @@ void Application::OnVideo(const std::filesystem::path &p) {
         std::chrono::duration_cast<std::chrono::system_clock::duration>(
             std::chrono::duration<int64_t, std::ratio<1, 10000000>>(
                 (int64_t)ticks.QuadPart - 116444736000000000LL)));
-    predatesCurrent = created < sessionWallStart_;
+    // NVIDIA and our keyboard hook observe Alt+F9 independently. The video can
+    // therefore be created a little before StartSession records its wall time.
+    // Only classify it as belonging to an older pending session when it is
+    // clearly older than the current recording.
+    predatesCurrent =
+        created + std::chrono::milliseconds(config_.confirmationTimeoutMs) <
+        sessionWallStart_;
   }
   // A video may become visible only after Stop, even if the next session has begun.
   for (auto it = pendingArchives_.rbegin(); it != pendingArchives_.rend(); ++it)
