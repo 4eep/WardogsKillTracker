@@ -1,8 +1,26 @@
-# CMake and build output
-/build*/
+# CMake build directories and in-source artifacts
+/build/
+/build-*/
+/cmake-build-*/
 /out/
+/CMakeCache.txt
+/CMakeFiles/
+/cmake_install.cmake
+/CTestTestfile.cmake
+/Makefile
+/_deps/
+/Testing/
+/*.sln
+/*.vcxproj
+/*.vcxproj.filters
+/*.vcxproj.user
 /x64/
-/WardogsKillTracker/x64/
+/Debug/
+/Release/
+/RelWithDebInfo/
+/MinSizeRel/
+
+# Local CMake configuration (shared CMakePresets.json remains tracked)
 CMakeUserPresets.json
 
 # Runtime data
@@ -18,6 +36,7 @@ CMakeUserPresets.json
 *.suo
 *.VC.db
 *.VC.opendb
+*.code-workspace
 
 # Compiler and linker artifacts
 *.obj
@@ -29,6 +48,8 @@ CMakeUserPresets.json
 *.recipe
 *.dll
 *.exe
+*.lib
+*.exp
 
 # OS files
 .DS_Store
