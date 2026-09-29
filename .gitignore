@@ -1,0 +1,35 @@
+# CMake and build output
+/build*/
+/out/
+/x64/
+/WardogsKillTracker/x64/
+CMakeUserPresets.json
+
+# Runtime data
+/output/
+/logs/
+/debug/
+*.log
+
+# Visual Studio and Rider
+/.vs/
+/.idea/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+
+# Compiler and linker artifacts
+*.obj
+*.pdb
+*.ilk
+*.iobj
+*.ipdb
+*.tlog
+*.recipe
+*.dll
+*.exe
+
+# OS files
+.DS_Store
+Thumbs.db

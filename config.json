@@ -1,0 +1,38 @@
+{
+  "capture": {
+    "monitorIndex": 0,
+    "fps": 30,
+    "killFeedRegion": {
+      "x": 0.0,
+      "y": 0.42,
+      "width": 0.30,
+      "height": 0.14
+    }
+  },
+  "detection": {
+    "templatePath": "assets/player_template.png",
+    "templateThreshold": 0.85,
+    "hashDistanceThreshold": 10,
+    "debugPreview": false,
+    "centerKillConfirmation": {
+      "enabled": true,
+      "templatePath": "assets/Killfeed_KillConfirmed.png",
+      "templateThreshold": 0.70,
+      "fusionWindowMs": 1200,
+      "region": {
+        "x": 0.41,
+        "y": 0.64,
+        "width": 0.18,
+        "height": 0.05
+      }
+    }
+  },
+  "nvidia": {
+    "hotkeyDetection": true,
+    "recordingDirectory": "D:\\Videos\\NVIDIA",
+    "watchRecordingDirectory": true,
+    "recordingConfirmationTimeoutMs": 5000
+  },
+  "outputDirectory": "output",
+  "timestampOffsetMs": 0
+}
